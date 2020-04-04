@@ -14,8 +14,11 @@
 
 #import "ViewController.h"
 #import "SecondViewController.h"
+<<<<<<< HEAD
 #import <AFNetworking.h>
 #import <SDWebImage/>
+=======
+>>>>>>> 75083a32bef10eabdee58957a8d8d3dbfeb4b825
 typedef void (^KCBlock)(id data); //定义block
 
 @interface ViewController ()
