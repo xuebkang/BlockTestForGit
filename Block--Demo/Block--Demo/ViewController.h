@@ -10,13 +10,6 @@
 
 
 @interface ViewController : UIViewController
-@property (nonatomic, assign) CGFloat lineWidth;
-@property (nonatomic, assign) CGFloat radius;
-@property (nonatomic, strong) UIColor *tintColor;
-@property (nonatomic, strong) UIView *backgroundView;
-
-- (void)startAnimating;
-- (void)stopAnimating;
  
 
 @end

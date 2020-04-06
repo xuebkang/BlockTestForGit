@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		564798A07C93E9AB460ED027 /* libPods-Block--Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16D8B0D7F32A02D334995778 /* libPods-Block--Demo.a */; };
+		85669512243B63790082AD14 /* DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 85669511243B63790082AD14 /* DownloadManager.m */; };
+		85669515243B6FD40082AD14 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85669514243B6FD40082AD14 /* ThirdViewController.m */; };
 		85AD9FA42433845C00DBE8E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85AD9FA32433845C00DBE8E0 /* AppDelegate.m */; };
 		85AD9FA72433845C00DBE8E0 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85AD9FA62433845C00DBE8E0 /* SceneDelegate.m */; };
 		85AD9FAA2433845C00DBE8E0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85AD9FA92433845C00DBE8E0 /* ViewController.m */; };
@@ -21,6 +23,10 @@
 /* Begin PBXFileReference section */
 		16D8B0D7F32A02D334995778 /* libPods-Block--Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Block--Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		546FF423E832E3ABD5E49823 /* Pods-Block--Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Block--Demo.debug.xcconfig"; path = "Target Support Files/Pods-Block--Demo/Pods-Block--Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		85669510243B63790082AD14 /* DownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadManager.h; sourceTree = "<group>"; };
+		85669511243B63790082AD14 /* DownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadManager.m; sourceTree = "<group>"; };
+		85669513243B6FD40082AD14 /* ThirdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
+		85669514243B6FD40082AD14 /* ThirdViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
 		85AD9F9F2433845C00DBE8E0 /* Block--Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Block--Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85AD9FA22433845C00DBE8E0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		85AD9FA32433845C00DBE8E0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -64,7 +70,6 @@
 				546FF423E832E3ABD5E49823 /* Pods-Block--Demo.debug.xcconfig */,
 				FA00BA87C1C331E9A0299C44 /* Pods-Block--Demo.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -97,6 +102,10 @@
 				85AD9FA92433845C00DBE8E0 /* ViewController.m */,
 				85AD9FBB24339B5900DBE8E0 /* SecondViewController.h */,
 				85AD9FBC24339B5900DBE8E0 /* SecondViewController.m */,
+				85669513243B6FD40082AD14 /* ThirdViewController.h */,
+				85669514243B6FD40082AD14 /* ThirdViewController.m */,
+				85669510243B63790082AD14 /* DownloadManager.h */,
+				85669511243B63790082AD14 /* DownloadManager.m */,
 				85AD9FAB2433845C00DBE8E0 /* Main.storyboard */,
 				85AD9FAE2433845E00DBE8E0 /* Assets.xcassets */,
 				85AD9FB02433845E00DBE8E0 /* LaunchScreen.storyboard */,
@@ -207,6 +216,8 @@
 				85AD9FA42433845C00DBE8E0 /* AppDelegate.m in Sources */,
 				85AD9FB52433845E00DBE8E0 /* main.m in Sources */,
 				85AD9FA72433845C00DBE8E0 /* SceneDelegate.m in Sources */,
+				85669512243B63790082AD14 /* DownloadManager.m in Sources */,
+				85669515243B6FD40082AD14 /* ThirdViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

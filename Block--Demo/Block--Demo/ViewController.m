@@ -16,7 +16,7 @@
 #import "SecondViewController.h"
 
 #import <AFNetworking.h>
-
+#import "DownloadManager.h"
 
 typedef void (^KCBlock)(id data); //定义block
 
@@ -25,6 +25,9 @@ typedef void (^KCBlock)(id data); //定义block
 @property (nonatomic, strong) UIButton *button2;
 @property (nonatomic, strong) UIButton *button3;
 @property (nonatomic, strong) UIButton *button4;
+@property (nonatomic, strong) UIButton *downloadImageBtn;
+@property (nonatomic, strong) UIImageView *myImgView;
+
 @end
 
 @implementation ViewController
@@ -37,6 +40,9 @@ typedef void (^KCBlock)(id data); //定义block
     [self.view addSubview:self.button2];
     [self.view addSubview:self.button3];
     [self.view addSubview:self.button4];
+    [self.view addSubview:self.downloadImageBtn];
+    [self.view addSubview:self.myImgView];
+    
 }
 
 -(UIButton *)button1{
@@ -90,7 +96,26 @@ typedef void (^KCBlock)(id data); //定义block
     }
     return _button4;
 }
-
+-(UIButton *)downloadImageBtn{
+    if (!_downloadImageBtn) {
+          _downloadImageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+          [_downloadImageBtn setTitle:@"点击下载图片" forState:UIControlStateNormal];
+          [_downloadImageBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+          _downloadImageBtn.titleLabel.font = [UIFont systemFontOfSize:15 weight:0.5];
+          _downloadImageBtn.frame = CGRectMake(60, 330, [UIScreen mainScreen].bounds.size.width - 120, 40);
+          _downloadImageBtn.backgroundColor = [UIColor orangeColor];
+        [_downloadImageBtn addTarget:self action:@selector(downloadImageAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _downloadImageBtn;
+}
+- (UIImageView *)myImgView{
+    if (!_myImgView) {
+        _myImgView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 380, [UIScreen mainScreen].bounds.size.width - 40, 200)];
+        _myImgView.contentMode = UIViewContentModeScaleAspectFill;
+        _myImgView.backgroundColor = [UIColor blueColor];
+    }
+    return _myImgView;
+}
 
 - (void)button1Action:(id)sender{
     //声明block 并调用block
@@ -129,9 +154,24 @@ typedef void (^KCBlock)(id data); //定义block
 - (void)button4Action:(id)sender{
     SecondViewController *vc = [[SecondViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
-    
-    
 }
+//点击下载图片
+- (void)downloadImageAction:(id)sender{
+    __weak typeof (self) weakSelf = self;
+    NSString *urlStr = @"https://img95.699pic.com/photo/40011/0709.jpg_wh860.jpg";
+    DownloadManager *downloadManager = [[DownloadManager alloc] init];
+    [downloadManager downloadWithUrl:urlStr parameters:nil hander:^(NSData * _Nonnull receiveData, NSError * _Nonnull error) {
+        if (error) {
+            NSLog(@"下载失败：%@", error);
+            weakSelf.downloadImageBtn.enabled = YES;
+        }else{
+            NSLog(@"下载成功：%@",receiveData);
+            weakSelf.myImgView.image = [UIImage imageWithData:[NSData dataWithData:receiveData]];
+            weakSelf.downloadImageBtn.enabled = NO;
+        }
+    }];
+}
+
 - (void)dealloc{
     NSLog(@"dealloc 来了！！");
 }
