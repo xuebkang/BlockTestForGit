@@ -20,7 +20,9 @@
 
 typedef void (^KCBlock)(id data); //定义block
 
-@interface ViewController ()
+@interface ViewController (){
+    int aa;
+}
 @property (nonatomic, strong) UIButton *button1;
 @property (nonatomic, strong) UIButton *button2;
 @property (nonatomic, strong) UIButton *button3;
@@ -43,6 +45,119 @@ typedef void (^KCBlock)(id data); //定义block
     [self.view addSubview:self.downloadImageBtn];
     [self.view addSubview:self.myImgView];
     
+    aa = 100;
+    [self demo10];
+     
+     // 声明静态局部变量global
+    static int global = 100;
+
+     void(^myBlock2)(void) = ^{
+         NSLog(@"global = %d", global);
+     };
+     // 调用后控制台输出"global = 100"
+     myBlock2();
+    
+}
+
+//Block访问变量的问题************************************************
+
+//block 中可以访问局部变量
+-(void)demo1{
+    int a = 10;
+    void (^myBlock)(void) = ^{
+        NSLog(@"a的值为：%d", a);
+    };
+    myBlock();
+}
+//在声明Block之后、调用Block之前对局部变量进行修改,在调用Block时局部变量值是修改之前的旧值
+- (void)demo2{
+    int a = 10;
+    void (^myBlock)(void) = ^{
+        NSLog(@"a的值为：%d", a);
+    };
+    a = 20;
+    // a的值为：10
+    myBlock();
+}
+//在Block中不可以直接修改局部变量
+- (void)demo3{
+    int a = 10;
+    void (^myBlock)(void) = ^{
+//        a++; //这一句报错
+        NSLog(@"a的值为：%d", a);
+    };
+    // 调用后控制台输出"a = 10"
+    myBlock();
+}
+
+// Block内访问__block修饰的局部变量
+- (void)demo4{
+//在局部变量前使用下划线__block修饰,在声明Block之后、调用Block之前对局部变量进行修改,在调用Block时局部变量值是修改之后的新值
+    __block int a = 10;
+    void(^myBlock)(void) = ^{
+        NSLog(@"a的值==%d",a);
+    };
+    a = 11;
+    // 调用后控制台输出"a的值== 11"
+    myBlock();
+}
+
+//在局部变量前使用下划线__block修饰,在Block中可以直接修改局部变量
+- (void)demo5{
+    __block int a = 10;
+    void(^myBlock)(void) = ^{
+        a++;
+        NSLog(@"a的值==%d",a);
+    };
+    // 调用后控制台输出"a的值==11"
+    myBlock();
+
+}
+//在Block中可以访问全局变量
+- (void)demo6{
+    void(^myBlock)(void) = ^{
+        NSLog(@"aa的值 == %d", self->aa);
+    };
+    // 调用后控制台输出"aa的值 = 100"
+    myBlock();
+}
+//在声明Block之后、调用Block之前对全局变量进行修改,在调用Block时全局变量值是修改之后的新值
+- (void)demo7{
+    void(^myBlock)(void) = ^{
+          NSLog(@"aa的值 == %d", self->aa);
+      };
+     aa = 200;
+      // 调用后控制台输出"aa的值 == 100"
+      myBlock();
+}
+//在Block中可以直接修改全局变量
+- (void)demo8{
+    void(^myBlock)(void) = ^{
+        self->aa++;
+        NSLog(@"aa的值 == %d", self->aa);
+      };
+      // 调用后控制台输出"aa的值 ==  101"
+      myBlock();
+}
+//在声明Block之后、调用Block之前对静态变量进行修改,在调用Block时静态变量值是修改之后的新值
+- (void)demo9{
+    static int a = 10;
+    void (^myBlock)(void) = ^{
+        NSLog(@"a的值==%d",a);
+    };
+    a = 20;
+    myBlock();
+}
+
+//在Block中可以直接修改静态变量
+- (void)demo10{
+    static int a = 10;
+     void (^myBlock)(void) = ^{
+         a++;
+         NSLog(@"a的值==%d",a);
+     };
+     myBlock();
+    //控制台输出结果：a的值==11
 }
 
 -(UIButton *)button1{
@@ -160,7 +275,7 @@ typedef void (^KCBlock)(id data); //定义block
     __weak typeof (self) weakSelf = self;
     NSString *urlStr = @"https://img95.699pic.com/photo/40011/0709.jpg_wh860.jpg";
     DownloadManager *downloadManager = [[DownloadManager alloc] init];
-    [downloadManager downloadWithUrl:urlStr parameters:nil hander:^(NSData * _Nonnull receiveData, NSError * _Nonnull error) {
+    [downloadManager downloadWithUrl:urlStr parameters:@{} hander:^(NSData * _Nonnull receiveData, NSError * _Nonnull error) {
         if (error) {
             NSLog(@"下载失败：%@", error);
             weakSelf.downloadImageBtn.enabled = YES;

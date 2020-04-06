@@ -10,7 +10,6 @@
 #import "ThirdViewController.h"
 typedef void (^MyBlock)(void);
 typedef void (^MyBlock2)(SecondViewController *);
-
 //typedef 定义有参数有返回值的block
 typedef int (^MyBlock3)(int c, int d);
 
@@ -38,15 +37,26 @@ typedef int (^MyBlock3)(int c, int d);
     self.name = @"我叫Block";
     [self.view addSubview:self.button1];
     [self.view addSubview:self.label1];
- 
+    
+
+    
+    // 声明静态局部变量global
+   static int global = 100;
+
+    void(^myBlock2)(void) = ^{
+        NSLog(@"global = %d", global);
+    };
+    // 调用后控制台输出"global = 100"
+    myBlock2();
     
     //作为方法调用block
     [self testTimeConsume:^{
+        
     }];
     //调用方法
     [self testBlockWith:^(NSString *name) {
         // 放入 block 中的代码，可以使用参数 name
-        // 参数 name 是实现代码中传入的，在调用时只能使用，不能赋值
+        // 参数 name 是实现代码中传入的，在调用时只能使用，不能修改
         NSLog(@"block传递过来的参数为：%@", name);
     }];
 }
@@ -132,7 +142,7 @@ typedef int (^MyBlock3)(int c, int d);
 }
 // Block作为 OC 中的方法参数
 
-// ---- 无参数传递的 Block ---------------------------// 实现
+// ---- 无参数传递的 Block ---------------------------//
 - (CGFloat)testTimeConsume:(void(^)(void))middleBlock{
     //执行前记录当前时间
     CFTimeInterval startTime = CACurrentMediaTime();
@@ -143,7 +153,7 @@ typedef int (^MyBlock3)(int c, int d);
     return endTime - startTime;
    
 }
-// ---- 有参数传递的 Block ---------------------------// 实现
+// ---- 有参数传递的 Block ---------------------------//
 - (NSString *)testBlockWith:(void(^)(NSString *name))testBlock{
     NSString *name = @"我是block传递的参数";
     testBlock(name);
@@ -182,7 +192,7 @@ typedef int (^MyBlock3)(int c, int d);
 }
 //无参数有返回值的block（实际中很少用到）
 - (void)blockWriteStyle4{
-    //有参有返回值的block
+    //无参有返回值的block
      int (^myBlock5)(void) = ^{
          NSLog(@"我是一个无参数， 有返回值的block");
          return 100;
