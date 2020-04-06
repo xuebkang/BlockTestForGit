@@ -38,7 +38,22 @@ typedef void (^MyBlock2)(SecondViewController *);
         NSLog(@"A=%d", a);
     }; 
     self.myBlock();
+    
+    //无返回有参数的block
+//    void (^myBlock3) (int) = ^{
+//
+//    };
 }
+
+//Block常用写法
+- (void)blockWriteStyle1{
+    //无参无返回值的
+     void (^myBlock2) (void) = ^{
+         NSLog(@"无参无返回Block");
+     };
+     myBlock2();
+}
+    
 
 //一般解决block循环的方法 __weak
 - (void)demo1{
